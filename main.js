@@ -1,17 +1,21 @@
 const API_KEY = 'F97155F15091531BCEC721143B9DD638';
 
+function addListeners(request) {
+  request.addEventListener("loadend", null);
+}
+
 async function getAvatarUrl(steamId, rank){
     const leaderboard = document.getElementById('leaderbords');
     const url = `https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
 
     const request = await fetch(url, {
-                                           method: "GET",
-                                           headers: {
-                                               "origin": "0",
-                                               "x-requested-with":"0",
-                                           },
-                                         });
+                                        headers: {
+                                            'origin': window.location.origin,
+                                            'x-requested-with': 'XMLHttpRequest'
+                                        },
+                                      });
     const data = await request.json();
+    console.log(request);
     const leaderDiv = document.createElement('div');
     leaderDiv.className = 'player';
 
@@ -32,12 +36,12 @@ async function getAvatarUrl(steamId, rank){
 
     leaderboard.appendChild(leaderDiv);
 }
-
 const Http = new XMLHttpRequest();
 const data_url="https://raw.githubusercontent.com/Artemiy8543/Leaderbords/master/data.txt";
+addListeners(Http);
 Http.open("GET", data_url);
 Http.send();
-Http.onreadystatechange = (e) => {
+Http.onloadend = (e) => {
   const data = Http.responseText;
   text = data.replace(/\n/g, "");
   if(text==""){
