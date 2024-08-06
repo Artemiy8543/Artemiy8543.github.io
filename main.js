@@ -4,7 +4,10 @@ async function getAvatarUrl(steamId){
     const url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+                                           mode: 'no-cors',
+                                           method: "GET",
+                                         });
 
         return response;
     } catch (error) {
