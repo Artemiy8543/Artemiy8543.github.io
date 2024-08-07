@@ -1,10 +1,24 @@
-const API_KEY = 'F97155F15091531BCEC721143B9DD638';
+    const API_KEY = 'F97155F15091531BCEC721143B9DD638';
 
 function addListeners(request) {
   request.addEventListener("loadend", null);
 }
 
 async function getAvatarUrl(steamId, rank){
+    const leaderDiv = document.createElement('div');
+    leaderDiv.className = 'player';
+
+    const image = document.createElement('img');
+    image.className = "avatar";
+
+    const userlink = document.createElement('a');
+    const name = document.createElement('h1');
+    name.className = "username";
+
+    const mmr = document.createElement('h1');
+    mmr.className = "rank";
+    mmr.textContent = rank;
+
     const leaderboard = document.getElementById('leaderbords');
     const url = `https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
 
@@ -14,24 +28,16 @@ async function getAvatarUrl(steamId, rank){
                                             'x-requested-with': 'XMLHttpRequest'
                                         },
                                       });
+    if(request.status != 200)return;
     const data = await request.json();
-    console.log(request);
-    const leaderDiv = document.createElement('div');
-    leaderDiv.className = 'player';
 
-    const image = document.createElement('img');
-    image.className = "avatar";
     image.src = data.response.players[0].avatarmedium;
+    userlink.textContent = data.response.players[0].personaname;
+    userlink.href = data.response.players[0].profileurl;
+
+    name.appendChild(userlink);
     leaderDiv.appendChild(image);
-
-    const name = document.createElement('h1');
-    name.className = "username";
-    name.textContent = data.response.players[0].personaname;
     leaderDiv.appendChild(name);
-
-    const mmr = document.createElement('h1');
-    mmr.className = "rank";
-    mmr.textContent = rank;
     leaderDiv.appendChild(mmr);
 
     leaderboard.appendChild(leaderDiv);
