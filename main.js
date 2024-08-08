@@ -8,6 +8,7 @@ async function getAvatarUrl(steamId, rank){
     const leaderDiv = document.createElement('div');
     leaderDiv.className = 'player';
 
+
     const image = document.createElement('img');
     image.className = "avatar";
 
@@ -21,6 +22,8 @@ async function getAvatarUrl(steamId, rank){
 
     const leaderboard = document.getElementById('leaderbords');
     const url = `https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
+
+    leaderboard.appendChild(leaderDiv);
 
     const request = await fetch(url, {
                                         headers: {
@@ -39,8 +42,6 @@ async function getAvatarUrl(steamId, rank){
     leaderDiv.appendChild(image);
     leaderDiv.appendChild(name);
     leaderDiv.appendChild(mmr);
-
-    leaderboard.appendChild(leaderDiv);
 }
 const Http = new XMLHttpRequest();
 const data_url="https://raw.githubusercontent.com/Artemiy8543/Leaderbords/master/data.txt";
