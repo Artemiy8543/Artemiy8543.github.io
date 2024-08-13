@@ -13,16 +13,18 @@ Http.send();
 Http.onloadend = (e) => {
   const data = Http.responseText;
   text = data.replace(/\n/g, "");
-  text = text.replace(/;00/g, ";");
+  text = text.replace(/00/g, "");
+  text = text.substr(text.indexOf("=")+1).replace(/item_/g, "");
   while(text.indexOf(";")!=-1){
       main = document.getElementById('main');
       wave = text.substr(0, text.indexOf(";"));
       wave_id = wave.substr(0, wave.indexOf("{"));
-      inventory = (wave.substr(wave.indexOf("{")+1, wave.indexOf("}")-2)).replace(/item_/g, "");
+      wave = wave.substr(wave.indexOf("{"));
+      inventory = wave.substr(wave.indexOf("{")+1, wave.indexOf("}")-1);
       wave = wave.substr(wave.indexOf("}")+1);
-      backpack = (wave.substr(wave.indexOf("{")+1, wave.indexOf("}")-2)).replace(/item_/g, "");
+      backpack = wave.substr(wave.indexOf("{")+1, wave.indexOf("}")-1);
       wave = wave.substr(wave.indexOf("}")+1);
-      base = (wave.substr(wave.indexOf("{")+1, wave.indexOf("}")-2)).replace(/item_/g, "");
+      base = wave.substr(wave.indexOf("{")+1, wave.indexOf("}")-1);
 
       const waveDiv = document.createElement('div');
       waveDiv.className = 'wave';

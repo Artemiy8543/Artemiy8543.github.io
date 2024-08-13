@@ -15,8 +15,9 @@ async function addMatch(matchID){
     request.onloadend = (e) => {
       const data = request.responseText;
       text = data.replace(/;00/g, ";");
+      text = text.substr(0, text.indexOf("="))
       heroId = Number(text.substr(0,text.indexOf("+")));
-      steam_id = text.substr(text.indexOf("+")+1,text.indexOf("=")-4);
+      steam_id = text.substr(text.indexOf("+")+1);
 
       const main = document.getElementById('main');
       const matchDiv = document.createElement('div');

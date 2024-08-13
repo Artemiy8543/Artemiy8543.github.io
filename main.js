@@ -42,7 +42,10 @@ async function getAvatarUrl(steamId, rank, heroId){
                                             'x-requested-with': 'XMLHttpRequest'
                                         },
                                       });
-    if(request.status != 200)return;
+    if(request.status != 200){
+        leaderboard.removeChild(leaderDiv);
+        return;
+    }
     const data = await request.json();
 
     hero_image.src = hero_url;
