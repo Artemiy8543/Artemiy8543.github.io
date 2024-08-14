@@ -74,7 +74,7 @@ Http.onloadend = (e) => {
   while(text.indexOf(";")!=-1){
       const rank = text.slice(text.indexOf(',')+1,text.indexOf('-'));
       const steamid = text.slice(0,text.indexOf(','));
-      const heroid = Number(text.slice(text.indexOf('-')+1,text.indexOf(';')));
+      const heroid = Number(text.slice(text.indexOf('-')+1,text.indexOf('{')));
 
       getAvatarUrl(steamid, rank, heroid);
       text = text.slice(text.indexOf(';')+1);
