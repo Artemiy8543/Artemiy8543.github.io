@@ -27,7 +27,9 @@ custom_items = ["vladimir_pact",
                 "armlet_of_mjolnir_inactive",
                 "armlet_of_mjolnir_active",
                 "trident_custom",
-                "infinity_moon_shard"];
+                "infinity_moon_shard",
+                "blade_midas",
+                "ultimate_boots"];
 
 function addListeners(request) {
   request.addEventListener("loadend", null);
@@ -98,8 +100,8 @@ Http.onloadend = (e) => {
 
       infosDiv.appendChild(inventoryDiv);
       infosDiv.appendChild(neutral_item);
-      waveDiv.appendChild(infosDiv);
       waveDiv.appendChild(waveid);
+      waveDiv.appendChild(infosDiv);
       main.appendChild(waveDiv);
 
       text = text.substr(text.indexOf(";")+1);
