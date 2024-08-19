@@ -1,12 +1,10 @@
 .main {
-    width:100%;
     background-color:rgb(127,127,127);
 }
 
 .wave {
     margin:auto;
-    width:100%;
-    height:100px;
+    height:192px;
     background-color:rgb(63,63,63);
     margin-bottom:10px;
 }
@@ -14,7 +12,7 @@
 .wave-id {
     font-family: system-ui, sans-serif;
     font-size: 35px;
-    margin-right:5px;
+    margin-top:75px;
     color:white;
     float:left;
 }
@@ -27,18 +25,27 @@
     margin-bottom:10px;
 }
 
-.inventory {
-    margin:auto;
-    font-family: system-ui, sans-serif;
-    font-size: 20px;
-    color:white;
+.item{
+    width:88px;
+    height:64px;
+    background-color:rgb(100,100,100);
 }
 
-.backpack {
-    margin:auto;
-    font-family: system-ui, sans-serif;
-    font-size: 20px;
-    color:white;
+.neutral-item{
+    float:left;
+    border-radius:50%;
+    margin-top:65px;
+    width:64px;
+    height:64px;
+    background-color:rgb(100,100,100);
+}
+
+.inventory {
+    margin-left:5px;
+    float:left;
+    width:264px;
+    height:192px;
+    background-color:rgb(63,63,63);
 }
 
 .base {
