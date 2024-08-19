@@ -24,7 +24,7 @@ custom_items = ["vladimir_pact",
                 "attacker_midas_str",
                 "attacker_midas_int",
                 "attacker_midas_agi",
-                "armlet_of_mjolnir_inactive",
+                "armlet_of_mjolnir",
                 "armlet_of_mjolnir_active",
                 "trident_custom",
                 "infinity_moon_shard"];
