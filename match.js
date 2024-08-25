@@ -13,6 +13,11 @@ custom_items = ["vladimir_pact",
                 "magic_crit",
                 "lightning_sword",
                 "great_magic_crit",
+                "great_magic_crit2",
+                "great_magic_crit3",
+                "great_crit_custom",
+                "great_crit_custom2",
+                "great_crit_custom3",
                 "gladiator_guard",
                 "firecracker_small",
                 "str_book",
@@ -27,7 +32,10 @@ custom_items = ["vladimir_pact",
                 "trident_custom",
                 "infinity_moon_shard",
                 "blade_midas",
-                "ultimate_boots"];
+                "ultimate_boots",
+                "phylactery_blade",
+                "lotus_cuirass",
+                "rod_staff"];
 
 function addListeners(request) {
   request.addEventListener("loadend", null);

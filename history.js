@@ -118,16 +118,22 @@ data_heroes = [{"id":1,"name":"npc_dota_hero_antimage"},
               {"id":126,"name":"npc_dota_hero_void_spirit"},
               {"id":128,"name":"npc_dota_hero_snapfire"},
               {"id":129,"name":"npc_dota_hero_mars"},
+              {"id":131,"name":"npc_dota_hero_ringmaster"},
               {"id":135,"name":"npc_dota_hero_dawnbreaker"},
               {"id":136,"name":"npc_dota_hero_marci"},
               {"id":137,"name":"npc_dota_hero_primal_beast"},
               {"id":138,"name":"npc_dota_hero_muerta"}];
 
+function submit(){
+    const search_bar = document.getElementById('search-bar');
+    window.location.href="history.html?steamid=" + search_bar.value;
+}
+
 function addListeners(request) {
   request.addEventListener("loadend", null);
 }
 
-async function addMatch(matchID){
+async function addMatch(matchID, steamID){
     const match_url = "https://raw.githubusercontent.com/Artemiy8543/Leaderbords/master/matches/" + matchID;
     const request = new XMLHttpRequest();
     addListeners(request);
@@ -136,19 +142,23 @@ async function addMatch(matchID){
     request.onloadend = (e) => {
       const data = request.responseText;
       text = data.replace(/;00/g, ";");
-      text = text.substr(0, text.indexOf("="))
+      if(text.substr(text.indexOf("=")+1)=="")return;
+      text = text.substr(0, text.indexOf("="));
       heroId = Number(text.substr(0,text.indexOf("+")));
       steam_id = text.substr(text.indexOf("+")+1);
+      if(steamID != "-1" && steamID != steam_id)return;
 
       const main = document.getElementById('main');
-      const matchDiv = document.createElement('div');
+      const matchDiv = document.createElement('button');
       matchDiv.className = 'match';
+      matchDiv.onclick = function(){
+        window.location.href="match.html?id=" + matchID;
+      };
 
       const sub_matchid = document.createElement('a');
       const matchid = document.createElement('h1');
       matchid.className = "match-id";
-      sub_matchid.textContent = matchID;
-      sub_matchid.href = "match.html?id=" + matchID;
+      matchid.textContent = matchID;
 
       const steamid = document.createElement('h1');
       steamid.className = "steamid";
@@ -162,23 +172,26 @@ async function addMatch(matchID){
       hero_image.src = hero_url;
 
       main.appendChild(matchDiv);
-      matchid.appendChild(sub_matchid);
-      matchDiv.appendChild(matchid);
       matchDiv.appendChild(steamid);
       matchDiv.appendChild(hero_image);
+      matchDiv.appendChild(matchid);
     }
 }
 
-async function GetMatchesData(url){
+async function GetMatchesData(url, steamID){
     const request = await fetch(url);
     if(request.status != 200)return;
     const data = await request.json();
     for (let ind = 0; ind < data.length; ind++) {
-        addMatch(data[ind].name);
+        addMatch(data[ind].name, steamID);
     }
 }
 
 
 const url = "https://api.github.com/repositories/837257621/contents/matches/";
 
-GetMatchesData(url);
+const self_url = new URLSearchParams(window.location.search);
+id = self_url.get('steamid');
+if(id==null)id="-1";
+
+GetMatchesData(url, id);
