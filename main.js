@@ -125,7 +125,16 @@ data_heroes = [{"id":1,"name":"npc_dota_hero_antimage"},
               {"id":137,"name":"npc_dota_hero_primal_beast"},
               {"id":138,"name":"npc_dota_hero_muerta"}];
 
-function addListeners(request) {
+function viewMatches(){
+    window.location.href="history.html";
+}
+
+function viewLeaderbords(){
+    if(id==-1)window.location.href="index.html?id=leaderbords";
+    else window.location.href="index.html";
+}
+
+function addListeners(request){
   request.addEventListener("loadend", null);
 }
 
@@ -153,18 +162,11 @@ async function getAvatarUrl(steamId, rank, heroId){
     hero_image.className = "hero";
 
     const leaderboard = document.getElementById('leaderbords');
-    const url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
+    const url = `https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
 
     leaderboard.appendChild(leaderDiv);
 
-    const request = await fetch(url, {
-                                        method: 'GET',
-                                        headers: {
-                                            "access-control-allow-origin": window.location.origin,
-                                            'Content-Type': 'application/json',
-                                            'API-Key': API_KEY,
-                                        },
-                                      });
+    const request = await fetch(url);
     if(request.status != 200){
         leaderboard.removeChild(leaderDiv);
         return;
@@ -199,7 +201,11 @@ Http.onloadend = (e) => {
       const steamid = text.slice(0,text.indexOf(','));
       const heroid = Number(text.slice(text.indexOf('-')+1,text.indexOf('{')));
 
-      getAvatarUrl(steamid, rank, heroid);
+      if(id!="-1")getAvatarUrl(steamid, rank, heroid);
       text = text.slice(text.indexOf(';')+1);
   }
 }
+
+const self_url = new URLSearchParams(window.location.search);
+id = self_url.get('id');
+if(id==null)id="-1";

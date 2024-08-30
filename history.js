@@ -124,11 +124,6 @@ data_heroes = [{"id":1,"name":"npc_dota_hero_antimage"},
               {"id":137,"name":"npc_dota_hero_primal_beast"},
               {"id":138,"name":"npc_dota_hero_muerta"}];
 
-function submit(){
-    const search_bar = document.getElementById('search-bar');
-    window.location.href="history.html?steamid=" + search_bar.value;
-}
-
 function addListeners(request) {
   request.addEventListener("loadend", null);
 }
@@ -160,9 +155,13 @@ async function addMatch(matchID, steamID){
       matchid.className = "match-id";
       matchid.textContent = matchID;
 
+      const steamidLink = document.createElement('a');
+      steamidLink.href = "profile.html?steamid=" + steam_id;
+
       const steamid = document.createElement('h1');
       steamid.className = "steamid";
       steamid.textContent = steam_id;
+
       const hero_name = (data_heroes.find(item => item.id == heroId)).name;
       const hero = hero_name.slice(14);
       const hero_url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/" + hero + ".png";
@@ -172,23 +171,17 @@ async function addMatch(matchID, steamID){
       hero_image.src = hero_url;
 
       main.appendChild(matchDiv);
-      matchDiv.appendChild(steamid);
+      steamidLink.appendChild(steamid);
+      matchDiv.appendChild(steamidLink);
       matchDiv.appendChild(hero_image);
       matchDiv.appendChild(matchid);
     }
 }
 
 async function GetMatchesData(url, steamID){
-    const request = await fetch(url, {
-                                        method: 'GET',
-                                        headers: {
-                                            "Authorization": "Bearer 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",
-                                            "Accept":"application/vnd.github.v3+json"
-                                        }
-                                      });
+    const request = await fetch(url);
     if(request.status != 200)return;
     const data = await request.json();
-    console.log(data);
     for (let ind = 0; ind < data.length; ind++) {
         addMatch(data[ind].name, steamID);
     }

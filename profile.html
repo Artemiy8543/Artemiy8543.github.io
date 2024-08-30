@@ -3,25 +3,28 @@
     <link href="/profile.css" rel="stylesheet">
     <meta charset="UTF-8">
 </head>
-<body>
+<body class="MainBody">
     <div class="main">
         <div class="profile-info" id="profile">
-            <img class="player-avatar" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/c5/c5084bd1f12a60b4404e13e39450b75f5c3d90f7_full.jpg">
-            <h1 class="player-name">PaNtS</h1>
+            <img id="PlayerAvatar" class="player-avatar" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/c5/c5084bd1f12a60b4404e13e39450b75f5c3d90f7_full.jpg">
+            <h1 id="PlayerName" class="player-name">PaNtS</h1>
             <div class="game-info">
-                <h1 class="player-rank">Рейтинг:1000</h1>
-                <h1 class="player-games">Игр:75</h1>
+                <h1 id="PlayerRank" class="player-rank">Рейтинг:1000</h1>
+                <h1 id="PlayerGames" class="player-games">Игр:75</h1>
             </div>
         </div>
         <div class="split-info">
             <div class="heroes-info" id="heroes"></div>
-            <div class="matches-info" id="matches">
-                <div class="match">
-                    <img class="hero-match" src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pudge.png">
-                    <h1 class="match-id">1UGe1NKa</h1>
-                    <h1 class="match-wave">Волна:50</h1>
-                </div>
-            </div>
+            <div class="matches-info" id="matches"></div>
+            <button onclick="viewMatches()" style="width:100%;
+                            height:100px;
+                            float:left;
+                            background-color:rgb(63,63,63);
+                            border:0px;">
+                <h1 style="font-family: system-ui, sans-serif;
+                            font-size: 40px;
+                            color:white;">Все матчи этого игрока</h1>
+            </button>
         </div>
     </div>
 </body>
