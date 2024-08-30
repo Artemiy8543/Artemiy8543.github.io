@@ -154,13 +154,7 @@ async function addHero(matchID, steamID){
 }
 
 async function GetMatchesData(url, steamID){
-    const request = await fetch(url, {
-        method: 'GET',
-        headers: {
-            "Authorization": "Bearer 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",
-            "Accept":"application/vnd.github.v3+json"
-        }
-    });
+    const request = await fetch(url);
     if(request.status != 200) return;
 
     const data = await request.json();
