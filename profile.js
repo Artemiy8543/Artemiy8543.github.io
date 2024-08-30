@@ -280,7 +280,6 @@ async function GetMatchesData(url, steamID){
     const gamesText = document.getElementById("PlayerGames");
     gamesText.textContent = "Игр:" + Dgames;
 }
-
 const self_url = new URLSearchParams(window.location.search);
 id = self_url.get('steamid');
 if(id==null)id="-1";
