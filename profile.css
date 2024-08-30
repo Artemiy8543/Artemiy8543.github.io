@@ -104,15 +104,15 @@
 .hero-games {
     font-family: system-ui, sans-serif;
     margin-top:0px;
-    font-size: 30px;
+    font-size: 20px;
     color:white;
     float:right;
 }
 
 .hero-wave {
     font-family: system-ui, sans-serif;
-    margin-top:0px;
-    font-size: 30px;
+    margin-top:30px;
+    font-size: 20px;
     color:white;
     float:right;
 }
@@ -144,7 +144,8 @@
 
 .match-wave {
     font-family: system-ui, sans-serif;
-    font-size: 35px;
+    margin-top:35px;
+    font-size: 20px;
     color:white;
     float:right;
 }

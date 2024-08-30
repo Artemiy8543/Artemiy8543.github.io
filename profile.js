@@ -177,7 +177,7 @@ async function addHero(matchID, steamID){
 
                 matchWave = document.createElement("h1");
                 matchWave.className = "match-wave";
-                matchWave.textContent = wave;
+                matchWave.textContent = "Волна:" + wave;
 
                 mainMatches.appendChild(matches_mainDiv);
 
@@ -198,7 +198,7 @@ async function addHero(matchID, steamID){
 }
 
 async function GetMatchesData(url, steamID){
-    const steamRequest = await fetch(`https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamID}`);
+    /*const steamRequest = await fetch(`https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamID}`);
     if(steamRequest.status != 200){
         return;
     }
@@ -209,6 +209,7 @@ async function GetMatchesData(url, steamID){
 
     Avatar.src = steamData.response.players[0].avatarmedium;
     Name.textContent = steamData.response.players[0].personaname;
+    */
 
     const Http = new XMLHttpRequest();
     addListeners(Http);
@@ -260,13 +261,15 @@ async function GetMatchesData(url, steamID){
 
         heroGames = document.createElement("h1");
         heroGames.className = "hero-games";
-        heroGames.textContent = data_heroes[hero_id].count;
+        heroGames.textContent = "Игр:" + data_heroes[hero_id].count;
+
+        if(data_heroes[hero_id].count==0)break;
 
         Dgames += data_heroes[hero_id].count;
 
         heroWave = document.createElement("h1");
         heroWave.className = "hero-wave";
-        heroWave.textContent = data_heroes[hero_id].avg;
+        heroWave.textContent = "avg:" + data_heroes[hero_id].avg;
 
         mainHeroes.appendChild(hero_mainDiv);
 
