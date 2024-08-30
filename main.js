@@ -153,7 +153,7 @@ async function getAvatarUrl(steamId, rank, heroId){
     hero_image.className = "hero";
 
     const leaderboard = document.getElementById('leaderbords');
-    const url = `https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
+    const url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
 
     leaderboard.appendChild(leaderDiv);
 
