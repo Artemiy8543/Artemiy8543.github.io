@@ -198,7 +198,7 @@ async function addHero(matchID, steamID){
 }
 
 async function GetMatchesData(url, steamID){
-    /*const steamRequest = await fetch(`https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamID}`);
+    const steamRequest = await fetch(`https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamID}`);
     if(steamRequest.status != 200){
         return;
     }
@@ -209,7 +209,6 @@ async function GetMatchesData(url, steamID){
 
     Avatar.src = steamData.response.players[0].avatarmedium;
     Name.textContent = steamData.response.players[0].personaname;
-    */
 
     const Http = new XMLHttpRequest();
     addListeners(Http);
