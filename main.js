@@ -1,4 +1,4 @@
-const API_KEY = 'F97155F15091531BCEC721143B9DD638';
+const API_KEY = 'CA5B8A7427276DFEABDD85A63C5121CF';
 data_heroes = [{"id":1,"name":"npc_dota_hero_antimage"},
               {"id":2,"name":"npc_dota_hero_axe"},
               {"id":3,"name":"npc_dota_hero_bane"},
@@ -153,14 +153,16 @@ async function getAvatarUrl(steamId, rank, heroId){
     hero_image.className = "hero";
 
     const leaderboard = document.getElementById('leaderbords');
-    const url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
+    const url = `https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
 
     leaderboard.appendChild(leaderDiv);
 
     const request = await fetch(url, {
+                                        method: 'GET',
                                         headers: {
-                                            'origin': window.location.origin,
-                                            'x-requested-with': 'XMLHttpRequest'
+                                            "access-control-allow-origin": window.location.origin,
+                                            'Content-Type': 'application/json',
+                                            'API-Key': API_KEY,
                                         },
                                       });
     if(request.status != 200){
