@@ -160,6 +160,7 @@ async function getAvatarUrl(steamId, rank, heroId){
 
     const hero_image = document.createElement('img');
     hero_image.className = "hero";
+    hero_image.src = hero_url;
 
     const leaderboard = document.getElementById('leaderbords');
     const url = `https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
@@ -167,16 +168,17 @@ async function getAvatarUrl(steamId, rank, heroId){
     leaderboard.appendChild(leaderDiv);
 
     const request = await fetch(url);
-    if(request.status != 200){
-        leaderboard.removeChild(leaderDiv);
-        return;
-    }
-    const data = await request.json();
+    if(request.status == 200){
+        const data = await request.json();
 
-    hero_image.src = hero_url;
-    image.src = data.response.players[0].avatarmedium;
-    userlink.textContent = data.response.players[0].personaname;
-    userlink.href = data.response.players[0].profileurl;
+        image.src = data.response.players[0].avatarmedium;
+        userlink.textContent = data.response.players[0].personaname;
+        userlink.href = data.response.players[0].profileurl;
+    }else{
+        image.src = "https://avatars.steamstatic.com/c5084bd1f12a60b4404e13e39450b75f5c3d90f7_medium.jpg";
+        userlink.textContent = steamId;
+        userlink.href = "https://steamcommunity.com/profiles/" + steamId;
+    }
 
     name.appendChild(userlink);
     leaderDiv.appendChild(image);

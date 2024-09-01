@@ -150,17 +150,17 @@ async function addMatch(matchID, steamID){
         window.location.href="match.html?id=" + matchID;
       };
 
-      const sub_matchid = document.createElement('a');
-      const matchid = document.createElement('h1');
-      matchid.className = "match-id";
-      matchid.textContent = matchID;
-
       const steamidLink = document.createElement('a');
       steamidLink.href = "profile.html?steamid=" + steam_id;
 
       const steamid = document.createElement('h1');
       steamid.className = "steamid";
       steamid.textContent = steam_id;
+
+      const marker = document.createElement('a');
+      marker.className = "marker";
+      marker.textContent = "☑";
+      marker.href = "match.html?id=" + matchID;
 
       const hero_name = (data_heroes.find(item => item.id == heroId)).name;
       const hero = hero_name.slice(14);
@@ -170,8 +170,13 @@ async function addMatch(matchID, steamID){
       hero_image.className = "hero";
       hero_image.src = hero_url;
 
+      const matchid = document.createElement('h1');
+      matchid.className = "match-id";
+      matchid.textContent = matchID;
+
       main.appendChild(matchDiv);
       steamidLink.appendChild(steamid);
+      matchDiv.appendChild(marker);
       matchDiv.appendChild(steamidLink);
       matchDiv.appendChild(hero_image);
       matchDiv.appendChild(matchid);

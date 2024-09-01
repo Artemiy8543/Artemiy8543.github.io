@@ -14,6 +14,7 @@
     background-color:rgb(63,63,63);
     margin-bottom:10px;
     border:0px;
+    padding:0 0 0 0;
 }
 
 .profile_button {
@@ -27,7 +28,8 @@
 .match-id {
     font-family: system-ui, sans-serif;
     font-size: 35px;
-    margin-right:5px;
+    margin-top:23.450px;
+    margin-right:15px;
     color:white;
     float:right;
 }
@@ -35,9 +37,22 @@
 .steamid {
     font-family: system-ui, sans-serif;
     font-size: 35px;
-    margin-right:5px;
+    margin-top:23.450px;
     color:white;
     float:left;
+}
+
+.marker {
+    font-family: system-ui, sans-serif;
+    font-size: 35px;
+    margin-top:25px;
+    float:left;
+    text-decoration: none;
+    color:red;
+}
+
+a:visited {
+    color:green;
 }
 
 .input {
