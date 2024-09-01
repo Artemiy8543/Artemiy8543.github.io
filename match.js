@@ -43,6 +43,7 @@ function addListeners(request) {
 
 function GetItemUrl(item_name){
     if(custom_items.indexOf(item_name)!=-1)return "items/" + item_name + ".png";
+    if(item_name.indexOf("recipe")!=-1)return "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/recipe.png";
     return "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/" + item_name + ".png";
 }
 
