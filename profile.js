@@ -258,7 +258,7 @@ async function GetMatchesData(url, steamID){
         hero_mainDiv = document.createElement("button");
         hero_mainDiv.className = "hero";
         hero_mainDiv.onclick = function(){
-            window.location.href="history.html?heroid=" + data_heroes[hero_id].id;
+            window.location.href="history.html?heroid=" + data_heroes[hero_id].id + "&steamid=" + steamID;
         };
 
         heroImg = document.createElement("img");
