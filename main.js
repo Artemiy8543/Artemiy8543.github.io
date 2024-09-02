@@ -168,6 +168,15 @@ async function getAvatarUrl(steamId, rank, heroId){
     leaderboard.appendChild(leaderDiv);
 
     const request = await fetch(url);
+    if(request.status == 403 && !is_alerted){
+        is_alerted = true;
+        if(window.confirm('Ошибка запроса:403. Нажмите "ОК" и на следующей странице кнопку "Request temporary access to the demo server".')){
+            let a=document.createElement('a');
+            a.target='_blank';
+            a.href='https://cors-anywhere.herokuapp.com/corsdemo';
+            a.click();
+        };
+    }
     if(request.status == 200){
         const data = await request.json();
 
@@ -211,3 +220,5 @@ Http.onloadend = (e) => {
 const self_url = new URLSearchParams(window.location.search);
 id = self_url.get('id');
 if(id==null)id="-1";
+
+is_alerted = false;

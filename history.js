@@ -128,7 +128,7 @@ function addListeners(request) {
   request.addEventListener("loadend", null);
 }
 
-async function addMatch(matchID, steamID){
+async function addMatch(matchID, steamID, heroID){
     const match_url = "https://raw.githubusercontent.com/Artemiy8543/Leaderbords/master/matches/" + matchID;
     const request = new XMLHttpRequest();
     addListeners(request);
@@ -139,7 +139,10 @@ async function addMatch(matchID, steamID){
       text = data.replace(/;00/g, ";");
       if(text.substr(text.indexOf("=")+1)=="")return;
       text = text.substr(0, text.indexOf("="));
+
       heroId = Number(text.substr(0,text.indexOf("+")));
+      if(heroID != "-1" && heroID != heroId)return;
+
       steam_id = text.substr(text.indexOf("+")+1);
       if(steamID != "-1" && steamID != steam_id)return;
 
@@ -183,12 +186,12 @@ async function addMatch(matchID, steamID){
     }
 }
 
-async function GetMatchesData(url, steamID){
+async function GetMatchesData(url, steamID, heroID){
     const request = await fetch(url);
     if(request.status != 200)return;
     const data = await request.json();
     for (let ind = 0; ind < data.length; ind++) {
-        addMatch(data[ind].name, steamID);
+        addMatch(data[ind].name, steamID, heroID);
     }
 }
 
@@ -196,7 +199,10 @@ async function GetMatchesData(url, steamID){
 const url = "https://api.github.com/repos/Artemiy8543/Leaderbords/contents/matches";
 
 const self_url = new URLSearchParams(window.location.search);
-id = self_url.get('steamid');
-if(id==null)id="-1";
+steamid_url = self_url.get('steamid');
+if(steamid_url==null)steamid_url="-1";
 
-GetMatchesData(url, id);
+heroid_url = self_url.get('heroid');
+if(heroid_url==null)heroid_url=-1;
+
+GetMatchesData(url, steamid_url, heroid_url);

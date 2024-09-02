@@ -156,7 +156,7 @@ async function addHero(matchID, steamID){
             wave = wave.substr(wave.lastIndexOf(";")+1);
             wave = wave.substr(0, wave.indexOf("{"));
             if(wave.indexOf("=")!=-1)wave = wave.substr(wave.indexOf("=")+1);
-                wave = Number(wave);
+            wave = Number(wave);
 
             if(total_matches<10){
                 const mainMatches = document.getElementById("matches");
@@ -199,6 +199,14 @@ async function addHero(matchID, steamID){
 
 async function GetMatchesData(url, steamID){
     const steamRequest = await fetch(`https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamID}`);
+    if(steamRequest.status == 403){
+        if(window.confirm('Ошибка запроса:403. Нажмите "ОК" и на следующей странице кнопку "Request temporary access to the demo server".')){
+            let a=document.createElement('a');
+            a.target='_blank';
+            a.href='https://cors-anywhere.herokuapp.com/corsdemo';
+            a.click();
+        };
+    }
 
     const Avatar = document.getElementById("PlayerAvatar");
     const Name = document.getElementById("PlayerName");
@@ -247,8 +255,11 @@ async function GetMatchesData(url, steamID){
     Dgames = 0;
 
     for(let hero_id=0;hero_id<10;hero_id++){
-        hero_mainDiv = document.createElement("div");
+        hero_mainDiv = document.createElement("button");
         hero_mainDiv.className = "hero";
+        hero_mainDiv.onclick = function(){
+            window.location.href="history.html?heroid=" + data_heroes[hero_id].id;
+        };
 
         heroImg = document.createElement("img");
         heroImg.className = "hero-avatar";
