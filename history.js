@@ -127,77 +127,100 @@ data_heroes = [{"id":1,"name":"npc_dota_hero_antimage"},
 function addListeners(request) {
   request.addEventListener("loadend", null);
 }
-
+let is_something=false;
 async function addMatch(matchID, steamID, heroID){
-    const match_url = "https://raw.githubusercontent.com/Artemiy8543/Leaderbords/master/matches/" + matchID;
-    const request = new XMLHttpRequest();
-    addListeners(request);
-    request.open("GET", match_url);
-    request.send();
-    request.onloadend = (e) => {
-      const data = request.responseText;
-      text = data.replace(/;00/g, ";");
-      if(text.substr(text.indexOf("=")+1)=="")return;
-      steamInfo = text.substr(0, text.indexOf("="));
+    return new Promise((resolve, reject) => {
+        const match_url = "https://raw.githubusercontent.com/Artemiy8543/Leaderbords/master/matches/" + matchID;
+        const request = new XMLHttpRequest();
+        addListeners(request);
+        request.open("GET", match_url);
+        request.send();
+        request.onloadend = (e) => {
+          const data = request.responseText;
+          text = data.replace(/;00/g, ";");
+          if(text.substr(text.indexOf("=")+1)=="")return resolve();
+          steamInfo = text.substr(0, text.indexOf("="));
 
-      heroId = Number(steamInfo.substr(0,steamInfo.indexOf("+")));
-      if(heroID != "-1" && heroID != heroId)return;
+          heroId = Number(steamInfo.substr(0,steamInfo.indexOf("+")));
+          if(heroID != "-1" && heroID != heroId)return resolve();
 
-      steam_id = steamInfo.substr(steamInfo.indexOf("+")+1);
-      if(steamID != "-1" && steamID != steam_id)return;
+          steam_id = steamInfo.substr(steamInfo.indexOf("+")+1);
+          if(steamID != "-1" && steamID != steam_id)return resolve();
+          is_something=true;
 
-      const main = document.getElementById('main');
-      const matchDiv = document.createElement('button');
-      matchDiv.className = 'match';
-      matchDiv.onclick = function(){
-        window.location.href="match.html?id=" + matchID;
-      };
+          const main = document.getElementById('main');
+          const matchDiv = document.createElement('button');
+          matchDiv.className = 'match';
+          matchDiv.onclick = function(){
+            window.location.href="match.html?id=" + matchID;
+          };
 
-      const steamidLink = document.createElement('a');
-      steamidLink.href = "profile.html?steamid=" + steam_id;
+          const steamidLink = document.createElement('a');
+          steamidLink.href = "profile.html?steamid=" + steam_id;
 
-      const steamid = document.createElement('h1');
-      steamid.className = "steamid";
-      steamid.textContent = steam_id;
+          const steamid = document.createElement('h1');
+          steamid.className = "steamid";
+          steamid.textContent = steam_id;
 
-      const marker = document.createElement('a');
-      marker.className = "marker";
-      marker.textContent = "☑";
-      marker.href = "match.html?id=" + matchID;
+          const marker = document.createElement('a');
+          marker.className = "marker";
+          marker.textContent = "☑";
+          marker.href = "match.html?id=" + matchID;
 
-      const hero_name = (data_heroes.find(item => item.id == heroId)).name;
-      const hero = hero_name.slice(14);
-      const hero_url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/" + hero + ".png";
+          const hero_name = (data_heroes.find(item => item.id == heroId)).name;
+          const hero = hero_name.slice(14);
+          const hero_url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/" + hero + ".png";
 
-      const hero_image = document.createElement('img');
-      hero_image.className = "hero";
-      hero_image.src = hero_url;
+          const hero_image = document.createElement('img');
+          hero_image.className = "hero";
+          hero_image.src = hero_url;
 
-      wave = text.substr(0,text.lastIndexOf(";"));
-      wave = wave.substr(wave.lastIndexOf(";")+1);
-      wave = wave.substr(0, wave.indexOf("{"));
-      if(wave.indexOf("=")!=-1)wave = wave.substr(wave.indexOf("=")+1);
-      wave = Number(wave);
+          wave = text.substr(0,text.lastIndexOf(";"));
+          wave = wave.substr(wave.lastIndexOf(";")+1);
+          wave = wave.substr(0, wave.indexOf("{"));
+          if(wave.indexOf("=")!=-1)wave = wave.substr(wave.indexOf("=")+1);
+          wave = Number(wave);
 
-      const waves = document.createElement('h1');
-      waves.className = "waves";
-      waves.textContent = "Волн:" + wave;
+          const waves = document.createElement('h1');
+          waves.className = "waves";
+          waves.textContent = "Волн:" + wave;
 
-      main.appendChild(matchDiv);
-      steamidLink.appendChild(steamid);
-      matchDiv.appendChild(marker);
-      matchDiv.appendChild(steamidLink);
-      matchDiv.appendChild(hero_image);
-      matchDiv.appendChild(waves);
-    }
+          main.appendChild(matchDiv);
+          steamidLink.appendChild(steamid);
+          matchDiv.appendChild(marker);
+          matchDiv.appendChild(steamidLink);
+          matchDiv.appendChild(hero_image);
+          matchDiv.appendChild(waves);
+          resolve();
+        }
+        request.onerror = reject;
+    });
 }
 
 async function GetMatchesData(url, steamID, heroID){
     const request = await fetch(url);
     if(request.status != 200)return;
     const data = await request.json();
-    for (let ind = 0; ind < data.length; ind++) {
-        addMatch(data[ind].name, steamID, heroID);
+    const promises = data.map(match => addMatch(match.name, steamID, heroID));
+    await Promise.all(promises);
+    if(!is_something){
+        const main = document.getElementById('main');
+        const heroes = document.createElement('h1');
+        heroes.className = "no-heroes";
+        if(steamID=="-1"){
+            if(heroID=="-1"){
+                heroes.textContent = "Ошибка 404!";
+            }else{
+                heroes.textContent = "На этом герое не было сыграно ни одной игры";
+            }
+        }else{
+            if(heroID=="-1"){
+                heroes.textContent = "Этот игрок никогда не заходил в кастомку";
+            }else{
+                heroes.textContent = "Этот игрок никогда не играл на этом герое";
+            }
+        }
+        main.appendChild(heroes);
     }
 }
 

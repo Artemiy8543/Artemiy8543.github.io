@@ -74,3 +74,10 @@ a:visited {
     margin-right:5px;
     float:right;
 }
+
+.no-heroes {
+    font-family: system-ui, sans-serif;
+    font-size: 35px;
+    text-align: center;
+    color:white;
+}
