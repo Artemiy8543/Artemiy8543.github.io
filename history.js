@@ -138,12 +138,12 @@ async function addMatch(matchID, steamID, heroID){
       const data = request.responseText;
       text = data.replace(/;00/g, ";");
       if(text.substr(text.indexOf("=")+1)=="")return;
-      text = text.substr(0, text.indexOf("="));
+      steamInfo = text.substr(0, text.indexOf("="));
 
-      heroId = Number(text.substr(0,text.indexOf("+")));
+      heroId = Number(steamInfo.substr(0,steamInfo.indexOf("+")));
       if(heroID != "-1" && heroID != heroId)return;
 
-      steam_id = text.substr(text.indexOf("+")+1);
+      steam_id = steamInfo.substr(steamInfo.indexOf("+")+1);
       if(steamID != "-1" && steamID != steam_id)return;
 
       const main = document.getElementById('main');
@@ -173,16 +173,22 @@ async function addMatch(matchID, steamID, heroID){
       hero_image.className = "hero";
       hero_image.src = hero_url;
 
-      const matchid = document.createElement('h1');
-      matchid.className = "match-id";
-      matchid.textContent = matchID;
+      wave = text.substr(0,text.lastIndexOf(";"));
+      wave = wave.substr(wave.lastIndexOf(";")+1);
+      wave = wave.substr(0, wave.indexOf("{"));
+      if(wave.indexOf("=")!=-1)wave = wave.substr(wave.indexOf("=")+1);
+      wave = Number(wave);
+
+      const waves = document.createElement('h1');
+      waves.className = "waves";
+      waves.textContent = "Волн:" + wave;
 
       main.appendChild(matchDiv);
       steamidLink.appendChild(steamid);
       matchDiv.appendChild(marker);
       matchDiv.appendChild(steamidLink);
       matchDiv.appendChild(hero_image);
-      matchDiv.appendChild(matchid);
+      matchDiv.appendChild(waves);
     }
 }
 

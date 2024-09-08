@@ -73,7 +73,7 @@ a {
     color:white;
 }
 
-.viewLeaderbords {
+.viewHeroes {
     height:100%;
     width:49.5%;
     background-color:rgb(127,127,127);
@@ -82,7 +82,7 @@ a {
     float:right;
 }
 
-.leaderbordsText {
+.heroesText {
     font-family: system-ui, sans-serif;
     font-size: 35px;
     margin-left:5px;

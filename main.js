@@ -129,9 +129,8 @@ function viewMatches(){
     window.location.href="history.html";
 }
 
-function viewLeaderbords(){
-    if(id==-1)window.location.href="index.html?id=leaderbords";
-    else window.location.href="index.html";
+function viewHeroes(){
+    window.location.href="heroes.html";
 }
 
 function addListeners(request){
@@ -212,13 +211,9 @@ Http.onloadend = (e) => {
       const steamid = text.slice(0,text.indexOf(','));
       const heroid = Number(text.slice(text.indexOf('-')+1,text.indexOf('{')));
 
-      if(id!="-1")getAvatarUrl(steamid, rank, heroid);
+      getAvatarUrl(steamid, rank, heroid);
       text = text.slice(text.indexOf(';')+1);
   }
 }
-
-const self_url = new URLSearchParams(window.location.search);
-id = self_url.get('id');
-if(id==null)id="-1";
 
 is_alerted = false;

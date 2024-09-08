@@ -1,0 +1,78 @@
+.MainBody{
+    margin: 0 0 0 0;
+}
+
+.heroes{
+    background-color:rgb(127,127,127);
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 20px;
+    grid-column-gap: 5px;
+}
+
+@media (min-width: 1275px) {
+  .heroes {
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 10px;
+  }
+}
+
+.atr-heroes {
+    width:100%;
+    border-radius:10px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+}
+
+.attribute {
+    background-color:rgb(63,63,63);
+}
+
+.hero-div {
+    text-decoration: none;
+    background-color:rgb(100,100,100);
+    border-radius:10px;
+    width:100%;
+}
+
+.hero-name{
+    margin-top:0px;
+    margin-bottom:0px;
+    text-align: center;
+    font-family: system-ui, sans-serif;
+    display:none;
+    color:white;
+}
+
+.hero {
+    width:100%;
+    border-radius:10px;
+}
+
+.hero-div:hover .hero {
+    width:75%;
+    margin-left:12.5%;
+}
+
+.hero-div:hover .hero-name {
+    display:block;
+    font-size: 1vw;
+}
+
+.atr-icon {
+    width:45px;
+    height:45px;
+    float:left;
+}
+
+.atr-text {
+    margin: 0px 0px 0px 0px;
+    font-family: system-ui, sans-serif;
+    font-size: 35px;
+    color:white;
+    float:left;
+}
