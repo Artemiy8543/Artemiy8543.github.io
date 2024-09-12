@@ -1,0 +1,97 @@
+.MainBody{
+    margin: 0 0 0 0;
+}
+
+#table{
+    background-color:rgb(50, 50, 50);
+    width:100%;
+    height:50px;
+}
+
+#lms-text {
+    margin-left:15px;
+    margin-top:15px;
+}
+
+.main-text {
+    font-family: system-ui, sans-serif;
+    font-size: 25px;
+}
+
+.div-body{
+    margin:15 15 15 15;
+}
+
+#zaglushka {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.back {
+    text-decoration: none;
+    color:black;
+    background-color:white;
+    margin:0 0 0 0;
+    padding:9 15 9 15;
+    border:1px solid;
+    border-radius:18px;
+    border-color:rgb(184, 184, 184);
+    width:60px;
+    height:18px;
+}
+
+.back-text {
+    color:black;
+    margin:0 0 0 0;
+    font-family: system-ui, sans-serif;
+    font-size: 14px;
+    height:18px;
+}
+
+.program {
+    text-decoration: none;
+    color:black;
+    border-bottom: 1px solid;
+    border-color:rgb(184, 184, 184);
+    margin:0 0 0 0;
+    padding:16 12 16 12;
+}
+
+#program-div {
+    border:1px solid;
+    border-color:rgb(184, 184, 184);
+    border-radius:10px;
+    background-color:rgb(244, 242, 240);
+    width:100%;
+    min-height:75%;
+}
+
+#for-num {
+    width:25px;
+    min-height:75%;
+    float:left;
+    border-right:1px solid;
+    border-color:rgb(184, 184, 184);
+}
+
+#for-code {
+    min-height:75%;
+    margin-left:25px;
+}
+
+.num {
+    margin:0 0 0 0;
+    color:rgb(184, 184, 184);
+    font-size: 18px;
+    text-align:center;
+    font-family: system-ui, sans-serif;
+}
+
+.code {
+    font-weight:500;
+    word-spacing:10px;
+    margin:0 0 0 0;
+    color:black;
+    font-size: 18px;
+    font-family: system-ui, sans-serif;
+}

@@ -1,0 +1,82 @@
+.MainBody{
+    margin: 0 0 0 0;
+}
+
+#table{
+    background-color:rgb(50, 50, 50);
+    width:100%;
+    height:50px;
+}
+
+#lms-text {
+    margin-left:15px;
+    margin-top:15px;
+}
+
+.main-text {
+    font-family: system-ui, sans-serif;
+    font-size: 25px;
+}
+
+.div-body{
+    margin:15 15 15 15;
+}
+
+#programs {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-radius:10px;
+    border:1px solid;
+    border-color:rgb(184, 184, 184);
+}
+
+#zaglushka {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.back {
+    text-decoration: none;
+    color:black;
+    background-color:white;
+    margin:0 0 0 0;
+    padding:9 15 9 15;
+    border:1px solid;
+    border-radius:18px;
+    border-color:rgb(184, 184, 184);
+    width:60px;
+    height:18px;
+}
+
+.back-text {
+    color:black;
+    margin:0 0 0 0;
+    font-family: system-ui, sans-serif;
+    font-size: 14px;
+    height:18px;
+}
+
+.program {
+    text-decoration: none;
+    color:black;
+    border-bottom: 1px solid;
+    border-color:rgb(184, 184, 184);
+    margin:0 0 0 0;
+    padding:16 12 16 12;
+}
+
+.program:last-child{
+  border-bottom: none;
+}
+
+.program:hover .program-name {
+    color:rgb(100,100,100);
+}
+
+.program-name {
+    color:black;
+    margin:0 0 0 0;
+    font-family: system-ui, sans-serif;
+    font-size: 16px;
+    text-align:left;
+}
