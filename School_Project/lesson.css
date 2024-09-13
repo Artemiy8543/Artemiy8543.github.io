@@ -15,7 +15,7 @@
 
 .main-text {
     font-family: system-ui, sans-serif;
-    font-size: 25px;
+    font-size: 2em;
 }
 
 .div-body{
@@ -52,7 +52,7 @@
     color:black;
     margin:0 0 0 0;
     font-family: system-ui, sans-serif;
-    font-size: 14px;
+    font-size: 0.9em;
     height:18px;
 }
 
@@ -77,6 +77,6 @@
     color:black;
     margin:0 0 0 0;
     font-family: system-ui, sans-serif;
-    font-size: 16px;
+    font-size: 2em;
     text-align:left;
 }

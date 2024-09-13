@@ -15,7 +15,7 @@
 
 .main-text {
     font-family: system-ui, sans-serif;
-    font-size: 25px;
+    font-size: 2em;
 }
 
 .div-body{
@@ -44,7 +44,7 @@
     color:black;
     margin:0 0 0 0;
     font-family: system-ui, sans-serif;
-    font-size: 14px;
+    font-size: 1em;
     height:18px;
 }
 
@@ -58,16 +58,17 @@
 }
 
 #program-div {
+    display: grid;
+    grid-template-columns: 0.05fr 1fr;
+
     border:1px solid;
     border-color:rgb(184, 184, 184);
     border-radius:10px;
     background-color:rgb(244, 242, 240);
-    width:100%;
     min-height:75%;
 }
 
 #for-num {
-    width:25px;
     min-height:75%;
     float:left;
     border-right:1px solid;
@@ -76,13 +77,13 @@
 
 #for-code {
     min-height:75%;
-    margin-left:25px;
+    margin-left:5px;
 }
 
 .num {
     margin:0 0 0 0;
     color:rgb(184, 184, 184);
-    font-size: 18px;
+    font-size: 2em;
     text-align:center;
     font-family: system-ui, sans-serif;
 }
@@ -92,6 +93,6 @@
     word-spacing:10px;
     margin:0 0 0 0;
     color:black;
-    font-size: 18px;
+    font-size: 2rem;
     font-family: system-ui, sans-serif;
 }
