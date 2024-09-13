@@ -6,7 +6,9 @@ async function main(url){
     const request = await fetch(url);
     if(request.status != 200)return;
     const data = await request.json();
-    const programs = document.getElementById('programs');
+    const clas = document.getElementById('clas');
+    const home = document.getElementById('home');
+    const dops = document.getElementById('dops');
 
     const name_request = new XMLHttpRequest();
     addListeners(name_request);
@@ -25,8 +27,6 @@ async function main(url){
 
         const program_name = document.createElement('h1');
         program_name.className = "program-name";
-
-        programs.appendChild(program);
         program.appendChild(program_name);
 
         const program_url = "https://api.github.com/repos/Artemiy8543/School_programs/contents/" + data[i].path;
@@ -41,6 +41,22 @@ async function main(url){
         program_name_request.send();
         program_name_request.onloadend = (e) => {
             program_name.textContent = program_name_request.responseText;
+        };
+
+        const program_type_url = program_data.find(item => item.name == "type").download_url;
+
+        const program_type_request = new XMLHttpRequest();
+        addListeners(program_type_request);
+        program_type_request.open("GET", program_type_url);
+        program_type_request.send();
+        program_type_request.onloadend = (e) => {
+            if(program_type_request.responseText == "1"){
+                clas.appendChild(program);
+            }else if(program_type_request.responseText == "2"){
+                home.appendChild(program);
+            }else{
+                dops.appendChild(program);
+            }
         };
     }
 }

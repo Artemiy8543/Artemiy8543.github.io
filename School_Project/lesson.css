@@ -22,10 +22,26 @@
     margin:15 15 15 15;
 }
 
-#programs {
+#clas {
     display: grid;
     grid-template-columns: 1fr;
-    border-radius:10px;
+    border-radius:10px 10px 0px 0px;
+    border:1px solid;
+    border-color:rgb(184, 184, 184);
+}
+
+#home {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-radius:0px 0px 0px 0px;
+    border:1px solid;
+    border-color:rgb(184, 184, 184);
+}
+
+#dops {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-radius:0px 0px 10px 10px;
     border:1px solid;
     border-color:rgb(184, 184, 184);
 }
@@ -82,12 +98,29 @@
     text-align:left;
 }
 
+.program-title {
+    color:black;
+    margin:0 0 0 0;
+    font-family: system-ui, sans-serif;
+    font-size: 1.5vh;
+    margin-left:10px;
+    float:left;
+}
+
+.program-img {
+    float:left;
+}
+
 @media (min-width: 985px) {
     .main-text {
         font-size: 1.5vw;
     }
 
     .program-name {
+        font-size: 1.5vw;
+    }
+
+    .program-title {
         font-size: 1.5vw;
     }
 }
