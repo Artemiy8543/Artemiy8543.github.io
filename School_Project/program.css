@@ -5,7 +5,7 @@
 #table{
     background-color:rgb(50, 50, 50);
     width:100%;
-    height:50px;
+    height:4%;
 }
 
 #lms-text {
@@ -30,19 +30,24 @@
     color:black;
     background-color:white;
     margin:0 0 0 0;
-    padding:9 15 9 15;
+    text-align:center;
     border:1px solid;
     border-radius:18px;
     border-color:rgb(184, 184, 184);
-    width:10%;
+    width:7%;
+    height:4%;
 }
 
 .back-text {
     color:black;
     margin:0 0 0 0;
     font-family: system-ui, sans-serif;
-    font-size: auto;
+    font-size: 100%;
     text-decoration: none;
+}
+
+.arrow {
+    width:10px;
 }
 
 .program {
@@ -95,10 +100,6 @@
 }
 
 @media (min-width: 985px) {
-    .back-text {
-        font-size: 1vw;
-    }
-
     .main-text {
         font-size: 1.5vw;
     }
@@ -111,3 +112,5 @@
         font-size: 2vh;
     }
 }
+
+#loadOverlay{display: none;}

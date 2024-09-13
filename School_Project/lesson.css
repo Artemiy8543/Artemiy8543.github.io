@@ -34,11 +34,11 @@
     color:black;
     background-color:white;
     margin:0 0 0 0;
-    padding:9 15 9 15;
     border:1px solid;
     border-radius:18px;
     border-color:rgb(184, 184, 184);
-    width:10%;
+    width:8%;
+    height:4%;
 }
 
 .back-text {
@@ -46,7 +46,11 @@
     color:black;
     margin:0 0 0 0;
     font-family: system-ui, sans-serif;
-    font-size: auto;
+    font-size: 100%;
+}
+
+.arrow {
+    width:10px;
 }
 
 #back-href{
@@ -79,14 +83,6 @@
 }
 
 @media (min-width: 985px) {
-    .back {
-        width:5%;
-    }
-
-    .back-text {
-        font-size: 1vw;
-    }
-
     .main-text {
         font-size: 1.5vw;
     }
@@ -95,3 +91,5 @@
         font-size: 1.5vw;
     }
 }
+
+#loadOverlay{display: none;}
