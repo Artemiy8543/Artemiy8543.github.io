@@ -15,7 +15,7 @@
 
 .main-text {
     font-family: system-ui, sans-serif;
-    font-size: 2em;
+    font-size: 1.5rem;
 }
 
 .div-body{
@@ -36,8 +36,7 @@
     border:1px solid;
     border-radius:18px;
     border-color:rgb(184, 184, 184);
-    width:60px;
-    height:18px;
+    width:67px;
 }
 
 .back-text {
@@ -45,7 +44,6 @@
     margin:0 0 0 0;
     font-family: system-ui, sans-serif;
     font-size: 1em;
-    height:18px;
 }
 
 .program {
@@ -83,7 +81,7 @@
 .num {
     margin:0 0 0 0;
     color:rgb(184, 184, 184);
-    font-size: 2em;
+    font-size: larger;
     text-align:center;
     font-family: system-ui, sans-serif;
 }
@@ -93,6 +91,6 @@
     word-spacing:10px;
     margin:0 0 0 0;
     color:black;
-    font-size: 2rem;
+    font-size: larger;
     font-family: system-ui, sans-serif;
 }

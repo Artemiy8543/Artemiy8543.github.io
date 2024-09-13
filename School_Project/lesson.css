@@ -44,16 +44,14 @@
     border:1px solid;
     border-radius:18px;
     border-color:rgb(184, 184, 184);
-    width:60px;
-    height:18px;
+    width:68px;
 }
 
 .back-text {
     color:black;
     margin:0 0 0 0;
     font-family: system-ui, sans-serif;
-    font-size: 0.9em;
-    height:18px;
+    font-size: 1em;
 }
 
 .program {
@@ -77,6 +75,6 @@
     color:black;
     margin:0 0 0 0;
     font-family: system-ui, sans-serif;
-    font-size: 2em;
+    font-size: larger;
     text-align:left;
 }
