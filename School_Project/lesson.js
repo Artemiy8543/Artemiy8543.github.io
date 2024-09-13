@@ -3,10 +3,7 @@ function addListeners(request) {
 }
 
 async function main(url){
-    const request = await fetch(url, {method: 'GET',
-                                     headers: {
-                                       'Authorization': 'Bearer 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'
-                                     }});
+    const request = await fetch(url);
     if(request.status != 200)return;
     const data = await request.json();
     const clas = document.getElementById('clas');
@@ -33,10 +30,7 @@ async function main(url){
         program.appendChild(program_name);
 
         const program_url = "https://api.github.com/repos/Artemiy8543/School_programs/contents/" + data[i].path;
-        const program_request = await fetch(program_url, {method: 'GET',
-                                                            headers: {
-                                                                'Authorization': 'Bearer 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'
-                                                            }});
+        const program_request = await fetch(program_url);
         if(program_request.status != 200)return;
         const program_data = await program_request.json();
         const program_name_url = program_data.find(item => item.name == "name").download_url;
