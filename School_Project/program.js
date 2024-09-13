@@ -3,7 +3,10 @@ function addListeners(request) {
 }
 
 async function main(url){
-    const request = await fetch(url);
+    const request = await fetch(url, {method: 'GET',
+                                        headers: {
+                                            'Authorization': 'Bearer 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'
+                                        }});
     if(request.status != 200)return;
     const data = await request.json();
     const program_name = document.getElementById('program-name');

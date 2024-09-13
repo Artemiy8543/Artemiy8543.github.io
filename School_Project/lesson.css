@@ -96,6 +96,7 @@
     font-family: system-ui, sans-serif;
     font-size: 1.5vh;
     text-align:left;
+    font-weight:500;
 }
 
 .program-title {
@@ -104,10 +105,11 @@
     font-family: system-ui, sans-serif;
     font-size: 1.5vh;
     margin-left:10px;
-    float:left;
+    text-align:left;
 }
 
 .program-img {
+    width:50px;
     float:left;
 }
 
@@ -122,6 +124,10 @@
 
     .program-title {
         font-size: 1.5vw;
+    }
+
+    .program-img {
+        width:25px;
     }
 }
 
