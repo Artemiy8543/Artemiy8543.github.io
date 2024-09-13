@@ -15,7 +15,7 @@
 
 .main-text {
     font-family: system-ui, sans-serif;
-    font-size: 2em;
+    font-size: 1.5vh;
 }
 
 .div-body{
@@ -47,6 +47,16 @@
     color:black;
     margin:0 0 0 0;
     font-family: system-ui, sans-serif;
-    font-size: larger;
+    font-size: 1.5vh;
     text-align:left;
+}
+
+@media (min-width: 985px) {
+    .main-text {
+        font-size: 1.5vw;
+    }
+
+    .lesson-name {
+        font-size: 1.5vw;
+    }
 }

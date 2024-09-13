@@ -15,7 +15,7 @@
 
 .main-text {
     font-family: system-ui, sans-serif;
-    font-size: 2em;
+    font-size: 1.5vh;
 }
 
 .div-body{
@@ -30,13 +30,7 @@
     border-color:rgb(184, 184, 184);
 }
 
-#zaglushka {
-    display: grid;
-    grid-template-columns: 1fr;
-}
-
 .back {
-    text-decoration: none;
     color:black;
     background-color:white;
     margin:0 0 0 0;
@@ -44,14 +38,19 @@
     border:1px solid;
     border-radius:18px;
     border-color:rgb(184, 184, 184);
-    width:68px;
+    width:10%;
 }
 
 .back-text {
+    text-decoration: none;
     color:black;
     margin:0 0 0 0;
     font-family: system-ui, sans-serif;
-    font-size: 1em;
+    font-size: auto;
+}
+
+#back-href{
+    text-decoration: none;
 }
 
 .program {
@@ -75,6 +74,24 @@
     color:black;
     margin:0 0 0 0;
     font-family: system-ui, sans-serif;
-    font-size: larger;
+    font-size: 1.5vh;
     text-align:left;
+}
+
+@media (min-width: 985px) {
+    .back {
+        width:5%;
+    }
+
+    .back-text {
+        font-size: 1vw;
+    }
+
+    .main-text {
+        font-size: 1.5vw;
+    }
+
+    .program-name {
+        font-size: 1.5vw;
+    }
 }

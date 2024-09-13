@@ -15,20 +15,18 @@
 
 .main-text {
     font-family: system-ui, sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.5vh;
 }
 
 .div-body{
     margin:15 15 15 15;
 }
 
-#zaglushka {
-    display: grid;
-    grid-template-columns: 1fr;
+#back-href {
+    text-decoration: none;
 }
 
 .back {
-    text-decoration: none;
     color:black;
     background-color:white;
     margin:0 0 0 0;
@@ -36,14 +34,15 @@
     border:1px solid;
     border-radius:18px;
     border-color:rgb(184, 184, 184);
-    width:67px;
+    width:10%;
 }
 
 .back-text {
     color:black;
     margin:0 0 0 0;
     font-family: system-ui, sans-serif;
-    font-size: 1em;
+    font-size: auto;
+    text-decoration: none;
 }
 
 .program {
@@ -81,7 +80,7 @@
 .num {
     margin:0 0 0 0;
     color:rgb(184, 184, 184);
-    font-size: larger;
+    font-size: 2vw;
     text-align:center;
     font-family: system-ui, sans-serif;
 }
@@ -91,6 +90,24 @@
     word-spacing:10px;
     margin:0 0 0 0;
     color:black;
-    font-size: larger;
+    font-size: 2vw;
     font-family: system-ui, sans-serif;
+}
+
+@media (min-width: 985px) {
+    .back-text {
+        font-size: 1vw;
+    }
+
+    .main-text {
+        font-size: 1.5vw;
+    }
+
+    .num {
+        font-size: 2vh;
+    }
+
+    .code {
+        font-size: 2vh;
+    }
 }
