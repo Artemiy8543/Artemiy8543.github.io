@@ -6,9 +6,9 @@ script_text = ""
 
 function copy_script(){
     navigator.clipboard.writeText(script_text).then(function() {
-      console.log("Успешно.");
+      alert("Код скопирован");
     }, function(err) {
-      console.error("Ошибка копирования:", err);
+      alert("Ошибка копирования:", err);
     });
 }
 
