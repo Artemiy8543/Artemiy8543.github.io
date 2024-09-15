@@ -2,26 +2,32 @@ function addListeners(request) {
   request.addEventListener("loadend", null);
 }
 
-async function main(url){
+script_text = ""
+
+function copy_script(){
+    navigator.clipboard.writeText(script_text).then(function() {
+      console.log("Успешно.");
+    }, function(err) {
+      console.error("Ошибка копирования:", err);
+    });
+}
+
+async function main(url, lesson_id, path_id){
     const request = await fetch(url);
     if(request.status != 200)return;
-    const data = await request.json();
+    data = await request.json();
+    data = data.find(item => item.path == lesson_id);
     const program_name = document.getElementById('program-name');
 
-    const name_request = new XMLHttpRequest();
-    addListeners(name_request);
-    name_request.open("GET", data.find(item => item.name == "name").download_url);
-    name_request.send();
-    name_request.onloadend = (e) => {
-        program_name.textContent = name_request.responseText;
-    };
+    program_name.textContent = data.files.find(item => item.path == path_id).name;
 
     const main_request = new XMLHttpRequest();
     addListeners(main_request);
-    main_request.open("GET", data.find(item => item.name == "main").download_url);
+    main_request.open("GET", "https://raw.githubusercontent.com/Artemiy8543/School_Programs/master/" + data.files.find(item => item.path == path_id).path);
     main_request.send();
     main_request.onloadend = (e) => {
         text = main_request.responseText;
+        script_text = text;
         text = text.replace(/\n/g, "|") + "|";
         const Nums = document.getElementById('for-num');
         const Code = document.getElementById('for-code');
@@ -45,7 +51,7 @@ async function main(url){
 }
 
 
-url = "https://api.github.com/repos/Artemiy8543/School_programs/contents/";
+url = "https://raw.githubusercontent.com/Artemiy8543/School_Programs/master/main.json";
 
 const self_url = new URLSearchParams(window.location.search);
 id = self_url.get('id');
@@ -54,6 +60,4 @@ if(id==null)id="1/1";
 const back_href = document.getElementById('back-href');
 back_href.href = "lesson.html?id=" + id.substr(0, id.indexOf("/"));
 
-url += id;
-
-main(url);
+main(url, id.substr(0, id.indexOf("/")), id);

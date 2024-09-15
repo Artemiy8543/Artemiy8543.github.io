@@ -5,7 +5,7 @@
 #table{
     background-color:rgb(50, 50, 50);
     width:100%;
-    height:50px;
+    height:2.5%;
 }
 
 #lms-text {
@@ -54,7 +54,7 @@
     border-radius:18px;
     border-color:rgb(184, 184, 184);
     width:8%;
-    height:4%;
+    height:2%;
 }
 
 .back-text {
@@ -128,6 +128,15 @@
 
     .program-img {
         width:25px;
+    }
+
+    .back {
+        width:5%;
+        height:4%;
+    }
+
+    #table{
+        height:5%;
     }
 }
 

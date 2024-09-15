@@ -5,7 +5,7 @@
 #table{
     background-color:rgb(50, 50, 50);
     width:100%;
-    height:50px;
+    height:2.5%;
 }
 
 #lms-text {
@@ -58,6 +58,10 @@
 
     .lesson-name {
         font-size: 1.5vw;
+    }
+
+    #table{
+        height:5%;
     }
 }
 
