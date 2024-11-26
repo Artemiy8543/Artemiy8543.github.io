@@ -123,7 +123,8 @@ data_heroes = [{"id":1,"name":"npc_dota_hero_antimage"},
               {"id":135,"name":"npc_dota_hero_dawnbreaker"},
               {"id":136,"name":"npc_dota_hero_marci"},
               {"id":137,"name":"npc_dota_hero_primal_beast"},
-              {"id":138,"name":"npc_dota_hero_muerta"}];
+              {"id":138,"name":"npc_dota_hero_muerta"},
+              {"id":145,"name":"npc_dota_hero_kez"}];
 
 function viewMatches(){
     window.location.href="history.html";

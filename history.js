@@ -122,7 +122,8 @@ data_heroes = [{"id":1,"name":"npc_dota_hero_antimage"},
               {"id":135,"name":"npc_dota_hero_dawnbreaker"},
               {"id":136,"name":"npc_dota_hero_marci"},
               {"id":137,"name":"npc_dota_hero_primal_beast"},
-              {"id":138,"name":"npc_dota_hero_muerta"}];
+              {"id":138,"name":"npc_dota_hero_muerta"},
+              {"id":145,"name":"npc_dota_hero_kez"}];
 
 function addListeners(request) {
   request.addEventListener("loadend", null);
@@ -143,6 +144,7 @@ async function addMatch(matchID, steamID, heroID){
 
           heroId = Number(steamInfo.substr(0,steamInfo.indexOf("+")));
           if(heroID != "-1" && heroID != heroId)return resolve();
+          if(heroId == 0)return resolve();
 
           steam_id = steamInfo.substr(steamInfo.indexOf("+")+1);
           if(steamID != "-1" && steamID != steam_id)return resolve();

@@ -122,7 +122,8 @@ data_heroes = [{"id":1,"name":"npc_dota_hero_antimage","localized_name":"Anti-Ma
               {"id":135,"name":"npc_dota_hero_dawnbreaker","localized_name":"Dawnbreaker","primary_attr":"str"},
               {"id":136,"name":"npc_dota_hero_marci","localized_name":"Marci","primary_attr":"all"},
               {"id":137,"name":"npc_dota_hero_primal_beast","localized_name":"Primal Beast","primary_attr":"str"},
-              {"id":138,"name":"npc_dota_hero_muerta","localized_name":"Muerta","primary_attr":"int"}];
+              {"id":138,"name":"npc_dota_hero_muerta","localized_name":"Muerta","primary_attr":"int"},
+              {"id":145,"name":"npc_dota_hero_kez","localized_name":"Kez","primary_attr":"agi"}];
 
 function addListeners(request) {
   request.addEventListener("loadend", null);

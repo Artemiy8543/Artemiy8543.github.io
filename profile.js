@@ -123,7 +123,8 @@ data_heroes = [{id:1,name:"npc_dota_hero_antimage",count:0,avg:0},
               {id:135,name:"npc_dota_hero_dawnbreaker",count:0,avg:0},
               {id:136,name:"npc_dota_hero_marci",count:0,avg:0},
               {id:137,name:"npc_dota_hero_primal_beast",count:0,avg:0},
-              {id:138,name:"npc_dota_hero_muerta",count:0,avg:0}];
+              {id:138,name:"npc_dota_hero_muerta",count:0,avg:0},
+              {id:145,name:"npc_dota_hero_kez",count:0,avg:0}];
 
 function viewMatches(){
     window.location.href="history.html?steamid=" + id;
