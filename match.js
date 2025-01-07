@@ -35,7 +35,8 @@ custom_items = ["vladimir_pact",
                 "ultimate_boots",
                 "phylactery_blade",
                 "lotus_cuirass",
-                "rod_staff"];
+                "rod_staff",
+                "corrosion_blade"];
 
 function addListeners(request) {
   request.addEventListener("loadend", null);
