@@ -127,7 +127,8 @@ data_heroes = [{id:1,name:"npc_dota_hero_antimage",count:0,avg:0},
               {id:145,name:"npc_dota_hero_kez",count:0,avg:0}];
 
 function viewMatches(){
-    window.location.href="history.html?steamid=" + id;
+    if(is_overthrow)window.location.href="history.html?steamid=" + id + "&overthrow=1";
+    else window.location.href="history.html?steamid=" + id;
 }
 
 function addListeners(request){
@@ -297,10 +298,171 @@ async function GetMatchesData(url, steamID){
     const gamesText = document.getElementById("PlayerGames");
     gamesText.textContent = "Игр:" + Dgames;
 }
+
+
+async function addHeroOverthrow(matchID, steamID){
+    const match_url = "https://raw.githubusercontent.com/Artemiy8543/Leaderbords/master/overthrow/matches/" + matchID;
+    var request = await fetch(match_url);
+    if(request.status != 200) return;
+    var data = await request.json();
+    return new Promise((resolve, reject) => {
+        var her = data.length;
+        for(let i=0;i<data.length;i++){
+            if(data[i].steamid != steamID && steamID != "-1")her -= 1;
+        }
+        if(her==0)return resolve();
+        for(let i=0;i<data.length;i++){
+            if(data[i].steamid == steamID || steamID == "-1"){
+                var hero = data_heroes.find(item => item.id == data[i].heroID);
+                if(hero){
+                    hero.count += 1;
+                    hero.avg = Math.ceil((hero.avg * hero.count + data[i].kills) / (hero.count + 1));
+                }
+                if(total_matches<10){
+                    var mainMatches = document.getElementById("matches");
+                    matches_mainDiv = document.createElement("button");
+                    matches_mainDiv.className = "match";
+                    matches_mainDiv.onclick = function(){
+                        window.location.href="match.html?id=" + matchID + "&overthrow=1";
+                    };
+
+                    heroImg = document.createElement("img");
+                    heroImg.className = "hero-match";
+                    heroImg.src = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/" + data_heroes.find(item => item.id == data[i].heroID).name.slice(14) + ".png";
+
+                    matchName = document.createElement("h1");
+                    matchName.className = "match-id";
+                    matchName.textContent = matchID.substr(0,matchID.indexOf(".json"));
+
+                    matchWave = document.createElement("h1");
+                    matchWave.className = "match-wave";
+                    matchWave.textContent = "Убийств:" + data[i].kills;
+
+                    mainMatches.appendChild(matches_mainDiv);
+
+                    matches_mainDiv.appendChild(heroImg);
+                    matches_mainDiv.appendChild(matchName);
+                    matches_mainDiv.appendChild(matchWave);
+                }
+                total_matches += 1;
+            }
+        }
+        resolve();
+    });
+}
+
+async function GetMatchesOverthrowData(url, steamID){
+    var steamRequest = await fetch(`https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamID}`);
+    if(steamRequest.status == 403){
+        if(window.confirm('Ошибка запроса:403. Нажмите "ОК" и на следующей странице кнопку "Request temporary access to the demo server".')){
+            let a=document.createElement('a');
+            a.target='_blank';
+            a.href='https://cors-anywhere.herokuapp.com/corsdemo';
+            a.click();
+        };
+    }
+
+    var Avatar = document.getElementById("PlayerAvatar");
+    var Name = document.getElementById("PlayerName");
+
+    if(steamRequest.status == 200 && steamID != "-1"){
+        var steamData = await steamRequest.json();
+
+        Avatar.src = steamData.response.players[0].avatarmedium;
+        Name.textContent = steamData.response.players[0].personaname;
+    }else{
+        if(steamID=="-1")Name.textContent = "Все игроки";
+        else Name.textContent = steamID;
+    }
+
+    var Http = new XMLHttpRequest();
+    addListeners(Http);
+    Http.open("GET", "https://raw.githubusercontent.com/Artemiy8543/Leaderbords/master/overthrow_data.txt");
+    Http.send();
+    Http.onloadend = (e) => {
+      rawdata = Http.responseText;
+      rawdata = rawdata.replace(/\n/g, "");
+      while(rawdata.indexOf(";")!=-1){
+        Dsteamid = rawdata.substr(0, rawdata.indexOf(","));
+        if(Dsteamid==steamID){
+            Dinfo = rawdata.substr(0, rawdata.indexOf(";"));
+            Dinfo = Dinfo.substr(Dinfo.indexOf(",")+1);
+
+            Drank = Dinfo.substr(0,Dinfo.indexOf("-"));
+            var rankText = document.getElementById("PlayerRank");
+            rankText.textContent = "Рейтинг:" + Drank;
+
+            Dinfo = Dinfo.substr(Dinfo.indexOf("{")+1);
+            Dgames = Dinfo.substr(0,Dinfo.indexOf("}"));
+            var gamesText = document.getElementById("PlayerGames");
+            gamesText.textContent = "Игр:" + Dgames;
+
+            break;
+        }
+        rawdata=rawdata.substr(rawdata.indexOf(";")+1);
+      }
+    }
+
+    var request = await fetch(url);
+    if(request.status != 200) return;
+
+    var data = await request.json();
+    var promises = data.map(match => addHeroOverthrow(match.name, steamID));
+    await Promise.all(promises);
+    data_heroes.sort((a, b) => b.count - a.count);
+
+    var mainHeroes = document.getElementById("heroes");
+
+    for(let hero_id=0;hero_id<10;hero_id++){
+        hero_mainDiv = document.createElement("button");
+        hero_mainDiv.className = "hero";
+        hero_mainDiv.onclick = function(){
+            window.location.href="history.html?heroid=" + data_heroes[hero_id].id + "&steamid=" + steamID + "&overthrow=1";
+        };
+
+        heroImg = document.createElement("img");
+        heroImg.className = "hero-avatar";
+        heroImg.src = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/" + data_heroes[hero_id].name.slice(14) + ".png";
+
+        heroName = document.createElement("h1");
+        heroName.className = "hero-name";
+        heroName.textContent = data_heroes[hero_id].name.slice(14);
+
+        infoDiv = document.createElement("div");
+        infoDiv.className = "hero-info";
+
+        heroGames = document.createElement("h1");
+        heroGames.className = "hero-games";
+        heroGames.textContent = "Игр:" + data_heroes[hero_id].count;
+
+        if(data_heroes[hero_id].count==0)break;
+
+        heroWave = document.createElement("h1");
+        heroWave.className = "hero-wave";
+        heroWave.textContent = "avg:" + data_heroes[hero_id].avg;
+
+        mainHeroes.appendChild(hero_mainDiv);
+
+        hero_mainDiv.appendChild(heroImg);
+        hero_mainDiv.appendChild(heroName);
+        hero_mainDiv.appendChild(infoDiv);
+
+        infoDiv.appendChild(heroGames);
+        infoDiv.appendChild(heroWave);
+    }
+}
+
 const self_url = new URLSearchParams(window.location.search);
 id = self_url.get('steamid');
 if(id==null)id="-1";
 
-const url = "https://api.github.com/repos/Artemiy8543/Leaderbords/contents/matches";
+is_overthrow = self_url.get('overthrow');
+if(is_overthrow==null)is_overthrow=false;
 
-GetMatchesData(url, id);
+if(is_overthrow){
+    url = "https://api.github.com/repos/Artemiy8543/Leaderbords/contents/overthrow/matches";
+    GetMatchesOverthrowData(url, id);
+}else{
+    url = "https://api.github.com/repos/Artemiy8543/Leaderbords/contents/matches";
+    GetMatchesData(url, id);
+}

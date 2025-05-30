@@ -5,12 +5,27 @@
 </head>
 <body class="MainBody">
     <div class="navigate">
-        <button onclick="viewMatches()" class="viewMatches">
-            <h1 class="matchesText">Матчи</h1>
+        <button id="Lead" onclick="viewLead()" class="changeMode">
+            <h1 class="changeModeText">VsCreeps</h1>
         </button>
-        <button onclick="viewHeroes()" class="viewHeroes">
-            <h1 class="heroesText">Герои</h1>
+        <button id="Over" onclick="viewLeadOver()" class="changeMode">
+            <h1 class="changeModeText">Overthrow</h1>
         </button>
     </div>
-    <div class="leaderbords" id="leaderbords"></div>
+    <div class="leaderbords" id="vsCreeps">
+        <button class="player" style="margin-bottom:2px;">
+            <img class="avatar" src="">
+            <h1 class="username">Игрок</h1>
+            <h1 class="rank">Рейтинг</h1>
+            <h1 class="hero" style="margin-top:30px;">Герой</h1>
+        </button>
+    </div>
+    <div class="leaderbords hidden" id="Overthrow">
+        <button class="player" style="margin-bottom:2px;">
+            <img class="avatar" src="">
+            <h1 class="username">Игрок</h1>
+            <h1 class="rank">Рейтинг</h1>
+            <h1 class="hero" style="margin-top:30px;">Герой</h1>
+        </button>
+    </div>
 </body>

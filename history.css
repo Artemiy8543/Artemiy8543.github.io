@@ -45,7 +45,6 @@
 .marker {
     font-family: system-ui, sans-serif;
     font-size: 35px;
-    margin-top:25px;
     float:left;
     text-decoration: none;
     color:red;
@@ -80,4 +79,30 @@ a:visited {
     font-size: 35px;
     text-align: center;
     color:white;
+}
+
+.matchOver {
+    margin:auto;
+    width:100%;
+    background-color:rgb(63,63,63);
+    margin-bottom:10px;
+    border:0px;
+    padding-bottom:10px;
+}
+
+.steamidOver {
+    font-family: system-ui, sans-serif;
+    font-size:1.35vw;
+    color:white;
+    margin:0 0 0 0;
+}
+
+.heroDiv {
+    width:14.8vw;
+    float:left;
+    margin-left:1.15vw;
+}
+
+.heroOver {
+    width:14.8vw;
 }

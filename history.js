@@ -137,7 +137,7 @@ async function addMatch(matchID, steamID, heroID){
         request.open("GET", match_url);
         request.send();
         request.onloadend = (e) => {
-          const data = request.responseText;
+          var data = request.responseText;
           text = data.replace(/;00/g, ";");
           if(text.substr(text.indexOf("=")+1)=="")return resolve();
           steamInfo = text.substr(0, text.indexOf("="));
@@ -150,30 +150,30 @@ async function addMatch(matchID, steamID, heroID){
           if(steamID != "-1" && steamID != steam_id)return resolve();
           is_something=true;
 
-          const main = document.getElementById('main');
-          const matchDiv = document.createElement('button');
+          var main = document.getElementById('main');
+          var matchDiv = document.createElement('button');
           matchDiv.className = 'match';
           matchDiv.onclick = function(){
             window.location.href="match.html?id=" + matchID;
           };
 
-          const steamidLink = document.createElement('a');
+          var steamidLink = document.createElement('a');
           steamidLink.href = "profile.html?steamid=" + steam_id;
 
-          const steamid = document.createElement('h1');
+          var steamid = document.createElement('h1');
           steamid.className = "steamid";
           steamid.textContent = steam_id;
 
-          const marker = document.createElement('a');
+          var marker = document.createElement('a');
           marker.className = "marker";
           marker.textContent = "☑";
           marker.href = "match.html?id=" + matchID;
 
-          const hero_name = (data_heroes.find(item => item.id == heroId)).name;
-          const hero = hero_name.slice(14);
-          const hero_url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/" + hero + ".png";
+          var hero_name = (data_heroes.find(item => item.id == heroId)).name;
+          var hero = hero_name.slice(14);
+          var hero_url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/" + hero + ".png";
 
-          const hero_image = document.createElement('img');
+          var hero_image = document.createElement('img');
           hero_image.className = "hero";
           hero_image.src = hero_url;
 
@@ -183,7 +183,7 @@ async function addMatch(matchID, steamID, heroID){
           if(wave.indexOf("=")!=-1)wave = wave.substr(wave.indexOf("=")+1);
           wave = Number(wave);
 
-          const waves = document.createElement('h1');
+          var waves = document.createElement('h1');
           waves.className = "waves";
           waves.textContent = "Волн:" + wave;
 
@@ -199,11 +199,73 @@ async function addMatch(matchID, steamID, heroID){
     });
 }
 
+async function addMatchOverthrow(matchID, steamID, heroID){
+    var url = "https://raw.githubusercontent.com/Artemiy8543/Leaderbords/master/overthrow/matches/" + matchID;
+    var request = await fetch(url);
+    if(request.status != 200)return resolve();
+    var data = await request.json();
+    console.log(data);
+    return new Promise((resolve, reject) => {
+        var her = data.length;
+        var stem = data.length;
+        for(let i=0;i<data.length;i++){
+            if(data[i].heroID != heroID && heroID != "-1")her -= 1;
+            if(data[i].steamid != steamID && steamID != "-1")stem -= 1;
+        }
+        if(her==0 || stem==0){
+            is_something = false;
+            return resolve();
+        }
+        var main = document.getElementById('main');
+        var matchDiv = document.createElement('button');
+        matchDiv.className = 'matchOver';
+        matchDiv.onclick = function(){
+            window.location.href="match.html?id=" + matchID + "&overthrow=1";
+        };
+
+        var marker = document.createElement('a');
+        marker.className = "marker";
+        marker.textContent = "☑";
+        marker.href = "match.html?id=" + matchID;
+
+        matchDiv.appendChild(marker);
+
+        for(let i=0;i<data.length;i++){
+            var heroDiv = document.createElement('div');
+            heroDiv.className = 'heroDiv';
+
+            var steamidLink = document.createElement('a');
+            steamidLink.href = "profile.html?steamid=" + data[i].steamid + "&overthrow=1";
+
+            var steamid = document.createElement('h1');
+            steamid.className = "steamidOver";
+            steamid.textContent = data[i].steamid;
+
+            var hero_image = document.createElement('img');
+            var hero_name = (data_heroes.find(item => item.id == data[i].heroID)).name;
+            var hero_url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/" + hero_name.slice(14) + ".png";
+            hero_image.className = "heroOver";
+            hero_image.src = hero_url;
+
+            steamidLink.appendChild(steamid);
+            heroDiv.appendChild(hero_image);
+            heroDiv.appendChild(steamidLink);
+            matchDiv.appendChild(heroDiv);
+        }
+
+        main.appendChild(matchDiv);
+    });
+}
+
 async function GetMatchesData(url, steamID, heroID){
-    const request = await fetch(url);
+    var request = await fetch(url);
     if(request.status != 200)return;
-    const data = await request.json();
-    const promises = data.map(match => addMatch(match.name, steamID, heroID));
+    var data = await request.json();
+    if(is_overthrow){
+        var promises = data.map(match => addMatchOverthrow(match.name, steamID, heroID));
+    }else{
+        var promises = data.map(match => addMatch(match.name, steamID, heroID));
+    }
     await Promise.all(promises);
     if(!is_something){
         const main = document.getElementById('main');
@@ -227,7 +289,6 @@ async function GetMatchesData(url, steamID, heroID){
 }
 
 
-const url = "https://api.github.com/repos/Artemiy8543/Leaderbords/contents/matches";
 
 const self_url = new URLSearchParams(window.location.search);
 steamid_url = self_url.get('steamid');
@@ -236,4 +297,13 @@ if(steamid_url==null)steamid_url="-1";
 heroid_url = self_url.get('heroid');
 if(heroid_url==null)heroid_url=-1;
 
-GetMatchesData(url, steamid_url, heroid_url);
+is_overthrow = self_url.get('overthrow');
+if(is_overthrow==null)is_overthrow=false;
+
+if(is_overthrow){
+    var url = "https://api.github.com/repos/Artemiy8543/Leaderbords/contents/overthrow/matches";
+    GetMatchesData(url, steamid_url, heroid_url);
+}else{
+    var url = "https://api.github.com/repos/Artemiy8543/Leaderbords/contents/matches";
+    GetMatchesData(url, steamid_url, heroid_url);
+}

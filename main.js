@@ -134,40 +134,62 @@ function viewHeroes(){
     window.location.href="heroes.html";
 }
 
+function viewLead(){
+    const leaderboard = document.getElementById('vsCreeps');
+    const Over = document.getElementById('Overthrow');
+    leaderboard.classList.remove('hidden');
+    Over.classList.add('hidden');
+}
+
+function viewLeadOver(){
+    const leaderboard = document.getElementById('vsCreeps');
+    const Over = document.getElementById('Overthrow');
+    leaderboard.classList.add('hidden');
+    Over.classList.remove('hidden');
+}
+
 function addListeners(request){
   request.addEventListener("loadend", null);
 }
 
-async function getAvatarUrl(steamId, rank, heroId){
-    const hero_name = (data_heroes.find(h => h.id === heroId)).name;
-    const hero = hero_name.slice(14);
-    const hero_url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/" + hero + ".png";
+async function getAvatarUrl(steamId, rank, heroId, vscreeps=true){
+    var hero_name = (data_heroes.find(h => h.id === heroId)).name;
+    var hero = hero_name.slice(14);
+    var hero_url = "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/" + hero + ".png";
 
-    const leaderDiv = document.createElement('div');
+    var leaderHref = 'profile.html?steamid=' + steamId;
+    if(!vscreeps)leaderHref += "&overthrow=1";
+    var leaderDiv = document.createElement('button');
     leaderDiv.className = 'player';
+    leaderDiv.onclick=function(){
+        window.location.href=leaderHref;
+    };
 
 
-    const image = document.createElement('img');
+    var image = document.createElement('img');
     image.className = "avatar";
 
-    const userlink = document.createElement('a');
-    const name = document.createElement('h1');
+    var userlink = document.createElement('a');
+    var name = document.createElement('h1');
     name.className = "username";
 
-    const mmr = document.createElement('h1');
+    var mmr = document.createElement('h1');
     mmr.className = "rank";
     mmr.textContent = rank;
 
-    const hero_image = document.createElement('img');
+    var hero_image = document.createElement('img');
     hero_image.className = "hero";
     hero_image.src = hero_url;
 
-    const leaderboard = document.getElementById('leaderbords');
-    const url = `https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
+    var elementID = 'Overthrow';
+
+    if(vscreeps)elementID = 'vsCreeps';
+    var leaderboard = document.getElementById(elementID);
+    var url = `https://cors-anywhere.herokuapp.com/https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamId}`;
 
     leaderboard.appendChild(leaderDiv);
 
-    const request = await fetch(url);
+    var request = await fetch(url);
     if(request.status == 403 && !is_alerted){
         is_alerted = true;
         if(window.confirm('Ошибка запроса:403. Нажмите "ОК" и на следующей странице кнопку "Request temporary access to the demo server".')){
@@ -178,7 +200,7 @@ async function getAvatarUrl(steamId, rank, heroId){
         };
     }
     if(request.status == 200){
-        const data = await request.json();
+        var data = await request.json();
 
         image.src = data.response.players[0].avatarmedium;
         userlink.textContent = data.response.players[0].personaname;
@@ -195,14 +217,31 @@ async function getAvatarUrl(steamId, rank, heroId){
     leaderDiv.appendChild(mmr);
     leaderDiv.appendChild(hero_image);
 }
-const Http = new XMLHttpRequest();
+is_alerted = false;
 const data_url="https://raw.githubusercontent.com/Artemiy8543/Leaderbords/master/data.txt";
+const data_overthrow_url="https://raw.githubusercontent.com/Artemiy8543/Leaderbords/master/overthrow_data.txt";
+
+const Http = new XMLHttpRequest();
 addListeners(Http);
 Http.open("GET", data_url);
 Http.send();
-
 Http.onloadend = (e) => {
   const data = Http.responseText;
+  text = data.replace(/\n/g, "");
+  if(text==""){
+    return
+  }
+  while(text.indexOf(";")!=-1){
+      getAvatarUrl(text.slice(0,text.indexOf(',')), text.slice(text.indexOf(',')+1,text.indexOf('-')), Number(text.slice(text.indexOf('-')+1,text.indexOf('{'))), true).then();
+      text = text.slice(text.indexOf(';')+1);
+  }
+}
+const Http2 = new XMLHttpRequest();
+addListeners(Http2);
+Http2.open("GET", data_overthrow_url);
+Http2.send();
+Http2.onloadend = (e) => {
+  const data = Http2.responseText;
   text = data.replace(/\n/g, "");
   if(text==""){
     return
@@ -212,9 +251,7 @@ Http.onloadend = (e) => {
       const steamid = text.slice(0,text.indexOf(','));
       const heroid = Number(text.slice(text.indexOf('-')+1,text.indexOf('{')));
 
-      getAvatarUrl(steamid, rank, heroid);
+      getAvatarUrl(steamid, rank, heroid, false);
       text = text.slice(text.indexOf(';')+1);
   }
 }
-
-is_alerted = false;
